@@ -28,7 +28,8 @@ keep_vars = true
 # ANNOUNCEMENT = "Custom Announcement"
 # always show ANNOUNCEMENT even no changes
 # ALWAYS_SHOW_ANNOUNCEMENT = true
-PREFIX = "tmp"
+# Set to empty string to disable prefixes like "tmp"
+PREFIX = ""
 # address check REGEX, if not set, will not check
 # ADDRESS_CHECK_REGEX = "^(?!.*admin).*"
 # address name replace REGEX, if not set, the default is [^a-z0-9]
