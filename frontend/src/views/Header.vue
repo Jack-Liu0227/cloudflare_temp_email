@@ -2,7 +2,7 @@
 import { ref, h, computed, onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useHead } from '@unhead/vue'
-import { useRoute, useRouter, RouterLink } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import { useIsMobile } from '../utils/composables'
 import {
     DarkModeFilled, LightModeFilled, MenuFilled,
@@ -75,11 +75,11 @@ const { locale, t } = useI18n({
             ok: 'OK',
         },
         zh: {
-            title: 'Cloudflare 临时邮件',
+            title: 'Cloudflare 临时邮箱',
             dark: '暗色',
             light: '亮色',
             accessHeader: '访问密码',
-            accessTip: '请输入站点访问密码',
+            accessTip: '请输入正确的访问密码',
             home: '主页',
             menu: '菜单',
             user: '用户',
@@ -262,7 +262,6 @@ const logoClick = async () => {
 
 onMounted(async () => {
     await api.getOpenSettings(message, notification);
-    // make sure user_id is fetched
     if (!userSettings.value.user_id) await api.getUserSettings(message);
 });
 </script>

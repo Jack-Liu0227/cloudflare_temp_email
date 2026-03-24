@@ -35,14 +35,14 @@ const { locale, t } = useI18n({
             success: '成功',
             name: '名称',
             mail_count: '邮件数量',
-            send_count: '发送数量',
+            send_count: '发信数量',
             actions: '操作',
             changeMailAddress: '切换地址',
             unbindAddress: '解绑地址',
-            unbindAddressTip: '解绑前请切换到此邮箱地址并保存邮箱地址凭证。',
+            unbindAddressTip: '解绑前请先切换到该邮箱地址，并保存好邮箱地址凭证。',
             transferAddress: '转移地址',
             targetUserEmail: '目标用户邮箱',
-            transferAddressTip: '转移地址到其他用户将会从你的账户中移除此地址并转移给其他用户。确定要转移地址吗？',
+            transferAddressTip: '转移后，该地址会从当前账户移除并绑定到目标用户。确定继续吗？',
             address: '地址',
             create_or_bind: '创建或绑定',
         }
@@ -74,7 +74,7 @@ const changeMailAddress = async (address_id) => {
 
 const unbindAddress = async (address_id) => {
     try {
-        const res = await api.fetch(`/user_api/unbind_address`, {
+        await api.fetch(`/user_api/unbind_address`, {
             method: 'POST',
             body: JSON.stringify({ address_id })
         });
@@ -96,7 +96,7 @@ const transferAddress = async () => {
         return;
     }
     try {
-        const res = await api.fetch(`/user_api/transfer_address`, {
+        await api.fetch(`/user_api/transfer_address`, {
             method: 'POST',
             body: JSON.stringify({
                 address_id: currentAddressId.value,
@@ -117,9 +117,7 @@ const transferAddress = async () => {
 
 const fetchData = async () => {
     try {
-        const { results } = await api.fetch(
-            `/user_api/bind_address`
-        );
+        const { results } = await api.fetch(`/user_api/bind_address`);
         data.value = results;
     } catch (error) {
         console.log(error)

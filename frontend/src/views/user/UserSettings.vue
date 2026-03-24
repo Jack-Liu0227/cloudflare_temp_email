@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, h } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { startRegistration } from '@simplewebauthn/browser';
 import { NButton, NPopconfirm } from 'naive-ui'
@@ -7,7 +7,7 @@ import { NButton, NPopconfirm } from 'naive-ui'
 import { useGlobalState } from '../../store'
 import { api } from '../../api'
 
-const { userJwt, userSettings, } = useGlobalState()
+const { userJwt, userSettings, loading } = useGlobalState()
 const message = useMessage()
 
 const showLogout = ref(false)
@@ -34,29 +34,26 @@ const { t } = useI18n({
             created_at: 'Created At',
             updated_at: 'Updated At',
             actions: 'Actions',
-            renamePasskey: 'Rename Passkey',
             renamePasskeyNamePlaceholder: 'Please enter the new passkey name',
         },
         zh: {
             logout: '退出登录',
             logoutConfirm: '确定要退出登录吗？',
-            passordTip: '服务器只会接收到密码的哈希值，不会接收到明文密码，因此无法查看或者找回您的密码, 如果管理员启用了邮件验证您可以在无痕模式重置密码',
+            passordTip: '服务端只会接收到密码哈希值，不会接收明文密码，因此无法查看或找回原密码。如果管理员启用了邮箱验证，你可以在无痕模式下重置密码。',
             createPasskey: '创建 Passkey',
             showPasskeyList: '查看 Passkey 列表',
             passkeyCreated: 'Passkey 创建成功',
-            passkeyNamePlaceholder: '请输入 Passkey 名称或者留空自动生成',
+            passkeyNamePlaceholder: '请输入 Passkey 名称，留空则自动生成',
             renamePasskey: '重命名 Passkey',
             deletePasskey: '删除 Passkey',
             passkey_name: 'Passkey 名称',
             created_at: '创建时间',
             updated_at: '更新时间',
             actions: '操作',
-            renamePasskey: '重命名 Passkey',
             renamePasskeyNamePlaceholder: '请输入新的 Passkey 名称',
         }
     }
 });
-
 
 const logout = async () => {
     userJwt.value = '';
@@ -73,7 +70,6 @@ const createPasskey = async () => {
         })
         const credential = await startRegistration({ optionsJSON: options })
 
-        // Send the result to the server and return the promise.
         await api.fetch(`/user_api/passkey/register_response`, {
             method: 'POST',
             body: JSON.stringify({
@@ -245,7 +241,6 @@ const renamePasskey = async () => {
     display: flex;
     justify-content: center;
 }
-
 
 .n-card {
     max-width: 800px;

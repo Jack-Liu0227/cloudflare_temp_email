@@ -47,16 +47,16 @@ const { locale, t } = useI18n({
             showAddressCredential: '查看邮箱地址凭证',
             logoutConfirm: '确定要退出登录吗？',
             deleteAccount: "删除账户",
-            deleteAccountConfirm: "确定要删除你的账户和其中的所有邮件吗?",
+            deleteAccountConfirm: "确定要删除当前账户以及该账户下的所有邮件吗？",
             clearInbox: "清空收件箱",
             clearSentItems: "清空发件箱",
-            clearInboxConfirm: "确定要清空你收件箱中的所有邮件吗？",
-            clearSentItemsConfirm: "确定要清空你发件箱中的所有邮件吗？",
+            clearInboxConfirm: "确定要清空收件箱中的所有邮件吗？",
+            clearSentItemsConfirm: "确定要清空发件箱中的所有邮件吗？",
             success: "成功",
             changePassword: "修改密码",
             newPassword: "新密码",
             confirmPassword: "确认密码",
-            passwordMismatch: "密码不匹配",
+            passwordMismatch: "两次输入的密码不一致",
             passwordChanged: "密码修改成功",
         }
     }
@@ -186,7 +186,7 @@ const changePassword = async () => {
                 </n-button>
             </template>
         </n-modal>
-        
+
         <n-modal v-model:show="showChangePassword" preset="dialog" :title="t('changePassword')">
             <n-form :model="{ newPassword, confirmPassword }">
                 <n-form-item :label="t('newPassword')">
@@ -210,7 +210,6 @@ const changePassword = async () => {
     display: flex;
     justify-content: center;
 }
-
 
 .n-card {
     max-width: 800px;

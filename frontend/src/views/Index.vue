@@ -1,5 +1,5 @@
 <script setup>
-import { defineAsyncComponent, onMounted, watch } from 'vue'
+import { defineAsyncComponent, onMounted, watch, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRoute } from 'vue-router'
 
@@ -54,8 +54,8 @@ const { t } = useI18n({
       accountSettings: '账户',
       appearance: '外观',
       about: '关于',
-      s3Attachment: 'S3附件',
-      saveToS3Success: '保存到s3成功',
+      s3Attachment: 'S3 附件',
+      saveToS3Success: '保存到 S3 成功',
       webhookSettings: 'Webhook 设置',
       query: '查询',
       enterSimpleMode: '极简模式',
@@ -90,7 +90,6 @@ const saveToS3 = async (mail_id, filename, blob) => {
       method: 'POST',
       body: JSON.stringify({ key: `${mail_id}/${filename}` })
     });
-    // upload to s3 by formdata
     const formData = new FormData();
     formData.append(filename, blob);
     await fetch(url, {
